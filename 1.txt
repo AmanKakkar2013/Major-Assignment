@@ -1,0 +1,31 @@
+my-pod.yaml File :
+
+
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-pod
+  namespace: web
+  labels:
+    app: myapp
+spec:
+  containers:
+  - name: myapp-container
+    image: nginx
+    ports:
+    - containerPort: 80
+    command: ["nginx", "-g", "daemon off;"]
+___________________________________________________________________________________________
+
+
+Commands :
+
+vi my-pod.yaml
+
+kubectl create -f my-pod.yaml
+
+
+kubectl get pods -n web
+
+kubectl describe pod my-pod -n web

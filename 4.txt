@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rolling-deployment
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 2
+  replicas: 3
+  selector:
+    matchLabels:
+      app: candy-service
+  template:
+    metadata:
+      labels:
+        app: candy-service
+    spec:
+      containers:
+      - name: candy-ws
+        image: linuxacademycontent/candy-service:1
+        ports:
+        - containerPort: 80
+		
+kubectl set image deployment/rolling-deployment candy-ws=linuxacademycontent/candy-service:3
+kubectl rollout undo deployment/rolling-deployment --to-revision=1
+____________________________________________________________________________________________________________________
